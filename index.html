@@ -42,8 +42,10 @@ let particle = ["いつごろ",
 "前",
 "後"];
 
-/*git add .
-git commit -m "Add more particle variations"*/
+/*
+git add .
+git commit -m "Add more particle variations"
+*/
 
 async function chatbot(text) {
     let code = text;
@@ -77,6 +79,7 @@ async function chatbot(text) {
         t("された",()=> { resp += wS+"@された"; wS = ""; });
         t("いった",()=> { resp += wS+"@いった"; wS = ""; });
         t("よって",()=> { resp += wS+"@よって"; wS = ""; });
+        t("でした",()=> { resp += wS+"@でした"; wS = ""; });
 
         t("って",()=> { resp += wS+"@って"; wS = ""; });
         t("には",()=> { resp += wS+"@には"; wS = ""; });
