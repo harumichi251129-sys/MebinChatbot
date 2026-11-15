@@ -22,7 +22,6 @@ let particle = ["いつごろ",
 "新しい",
 "あした",
 "小さな",
-"その他",
 "あなた",
 "わたし",
 "人工",
@@ -42,7 +41,8 @@ let particle = ["いつごろ",
 "行う",
 "何",
 "前",
-"後"];
+"後",
+"他"];
 
 /*
 git add .
@@ -61,12 +61,11 @@ async function chatbot(text) {
     while(code) {
         word = []; iE=0; ib=0;
 
-        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { resp += wS+"@"+particle[i]; wS = ""; ib=1; },0); if(ib==1) break; }
+        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
         t("どうなって",()=> { resp += wS+"@どうなって"; })
         t("こんにちは",()=> { resp += "@こんにちは"; });
         t("こんばんは",()=> { resp += "@こんばんは"; });
-        t("できます",()=> { resp += "@できます"; });
         t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
         t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
 
@@ -110,6 +109,7 @@ async function chatbot(text) {
         t("また",()=> { resp += wS+"@また"; wS = ""; });
         t("ない",()=> { resp += wS+"@ない"; wS = ""; });
         t("いう",()=> { resp += wS+"@いう"; wS = ""; });
+        t("より",()=> { resp += wS+"@より"; wS = ""; });
 
         t("は",()=> { resp += wS+"@は"; wS = ""; });
         t("に",()=> { resp += wS+"@に"; wS = ""; });
@@ -121,6 +121,7 @@ async function chatbot(text) {
         t("で",()=> { resp += wS+"@で"; wS = ""; });
         t("や",()=> { resp += wS+"@や"; wS = ""; });
         t("な",()=> { resp += wS+"@な"; wS = ""; });
+        t("も",()=> { resp += wS+"@も"; wS = ""; });
 
         t("！",()=> { resp += wS+"@！"; wS = ""; });
         t("？",()=> { resp += wS+"@？"; wS = ""; });
