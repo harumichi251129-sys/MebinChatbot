@@ -130,6 +130,8 @@ async function chatbot(text) {
         t("」",()=> { resp += wS+"@」"; wS = ""; });
         t("(",()=> { resp += wS+"@("; wS = ""; });
         t(")",()=> { resp += wS+"@)"; wS = ""; });
+        t("!",()=> { resp += wS+"@!"; wS = ""; });
+        t("?",()=> { resp += wS+"@?"; wS = ""; });
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
         //await waitfor(1)
