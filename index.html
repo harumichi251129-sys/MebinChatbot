@@ -1,9 +1,7 @@
 <div id="console"></div>
-<div id="result"></div>
 
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-<script src="https://draw-js.oneapp.dev/Draw.js"></script>
 <script>
 
 /*
@@ -12,7 +10,6 @@
 単語ごとに分割して出力する。
 */
 
-canvas = document.getElementById("result");
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ",
@@ -49,6 +46,8 @@ git add .
 git commit -m "Add more particle variations"
 */
 
+function echo(text) { textOutput.innerHTML += text; }
+
 async function chatbot(text) {
     let code = text;
     let resp = "";
@@ -56,6 +55,7 @@ async function chatbot(text) {
     let word = [];
     let iE = 0;
     let ib = 0;
+
     function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
@@ -63,7 +63,6 @@ async function chatbot(text) {
 
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
-        t("どうなって",()=> { resp += wS+"@どうなって"; })
         t("こんにちは",()=> { resp += "@こんにちは"; });
         t("こんばんは",()=> { resp += "@こんばんは"; });
         t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
@@ -73,7 +72,6 @@ async function chatbot(text) {
         t("どんな",()=> { resp += wS+"@どんな"; wS = ""; });
         t("ところ",()=> { resp += wS+"@ところ"; wS = ""; });
         t("すれば",()=> { resp += wS+"@すれば"; wS = ""; });
-        t("します",()=> { resp += wS+"@します"; wS = ""; });
         t("された",()=> { resp += wS+"@された"; wS = ""; });
         t("いった",()=> { resp += wS+"@いった"; wS = ""; });
         t("よって",()=> { resp += wS+"@よって"; wS = ""; });
@@ -81,7 +79,6 @@ async function chatbot(text) {
         t("られる",()=> { resp += wS+"@られる"; wS = ""; });
 
         t("って",()=> { resp += wS+"@って"; wS = ""; });
-        t("には",()=> { resp += wS+"@には"; wS = ""; });
         t("して",()=> { resp += wS+"@して"; wS = ""; });
         t("こと",()=> { resp += wS+"@こと"; wS = ""; });
         t("どの",()=> { resp += wS+"@どの"; wS = ""; });
@@ -111,6 +108,10 @@ async function chatbot(text) {
         t("いう",()=> { resp += wS+"@いう"; wS = ""; });
         t("より",()=> { resp += wS+"@より"; wS = ""; });
         t("だけ",()=> { resp += wS+"@だけ"; wS = ""; });
+        t("どう",()=> { resp += wS+"@どう"; wS = ""; });
+        t("なれ",()=> { resp += wS+"@なれ"; wS = ""; });
+        t("でき",()=> { resp += wS+"@でき"; wS = ""; });
+        t("たら",()=> { resp += wS+"@たら"; wS = ""; });
 
         t("は",()=> { resp += wS+"@は"; wS = ""; });
         t("に",()=> { resp += wS+"@に"; wS = ""; });
