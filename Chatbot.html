@@ -7,25 +7,28 @@
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
-let cutParticle = ["結局","つまり","すなわち","しばしば","らしい","どんな","ところ","すれば","された","いった","よって","って","して","こと","どの","から","いい","とは","なの","なぜ","もし","する","うち","です","ます","など"];
+let cutParticle = ["結局","なん"];
 
 /*
 git add .
 git commit -m "Add more particle variations"
 */
+let data = [[],[],[]];
 
 function echo(text) { textOutput.innerHTML += text; }
 const name = "Aokiさん";
 
 async function chatbot(text) {
+    data = [[],[],[]];
     let code = text;
     let resp = "";
     let wS = "";
     let word = [];
     let iE = 0;
     let ib = 0;
+    
 
-    function loadFlashMemory(name) { return localStorage.getItem(name); }
+    function loadFlashMemory(name) { return localStorage.getItem(name) || ""; }
     function saveFlashMemory(name, value) { localStorage.setItem(name, value); }
     function deleteFlashMemory(name) { localStorage.removeItem(name); }
 
@@ -34,6 +37,7 @@ async function chatbot(text) {
     while(code) {
         word = []; iE=0; ib=0;
 
+        for(let i = 0;i < cutParticle.length;i++) { t(cutParticle[i],()=> { ib=1; },1); }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
         t("こんにちは",()=> { resp += "こんにちは、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
@@ -48,7 +52,7 @@ async function chatbot(text) {
         t("いった",()=> { resp += wS+"@いった"; wS = ""; });
         t("よって",()=> { resp += wS+"@よって"; wS = ""; });
 
-        t("って",()=> { resp += wS+"@って"; wS = ""; });
+        t("って",()=> { resp += wS+"@って"; data[1].push(wS); wS = ""; });
         t("して",()=> { resp += wS+"@して"; wS = ""; });
         t("こと",()=> { resp += wS+"@こと"; wS = ""; });
         t("どの",()=> { resp += wS+"@どの"; wS = ""; });
@@ -88,13 +92,13 @@ async function chatbot(text) {
         t("られ",()=> { resp += wS+"@られ"; wS = ""; });
         t("らし",()=> { resp += wS+"@らし"; wS = ""; });
 
-        t("は",()=> { resp += wS+"@は"; wS = ""; });
+        t("は",()=> { resp += wS+"@は"; data[1].push(wS); wS = ""; });
         t("に",()=> { resp += wS+"@に"; wS = ""; });
         t("を",()=> { resp += wS+"@を"; wS = ""; });
         t("が",()=> { resp += wS+"@が"; wS = ""; });
-        t("の",()=> { resp += wS+"@の"; wS = ""; });
+        t("の",()=> { resp += wS+"@の"; data[0].push(wS); wS = ""; });
         t("か",()=> { resp += wS+"@か"; wS = ""; });
-        t("と",()=> { resp += wS+"@と"; wS = ""; });
+        t("と",()=> { resp += wS+"@と"; data[1].push(wS); wS = ""; });
         t("で",()=> { resp += wS+"@で"; wS = ""; });
         t("や",()=> { resp += wS+"@や"; wS = ""; });
         t("な",()=> { resp += wS+"@な"; wS = ""; });
@@ -102,9 +106,30 @@ async function chatbot(text) {
         t("る",()=> { resp += wS+"@る"; wS = ""; });
 
         t("！",()=> { resp += wS+"@！"; wS = ""; });
-        t("？",()=> { resp += wS+"@？"; wS = ""; });
+        
+        t("？",()=> {
+            const result = loadFlashMemory(data[0].join(" ")+data[1].join(" "));
+            if(result) {
+                resp += result.replace("は、","は").replace(/です。$/,"です！");
+            } else {
+                if(data[0].length && data[1].length) {
+                    resp += "すみません、まだ"+data[0].join("と")+"の"+data[1].join("と")+"を知りません。良かったら教えてください！";
+                } else if(data[0].length) {
+                    resp += "すみません、まだ"+data[0].join("と")+"を知りません。良かったら教えてください！";
+                } else if(data[1].length) {
+                    resp += "すみません、まだ"+data[1].join("と")+"を知りません。良かったら教えてください！";
+                }
+            }
+            wS = ""; });
+
         t("、",()=> { resp += wS+"@、"; wS = ""; });
-        t("。",()=> { resp += wS+"@。"; wS = ""; });
+        t("。",()=> {
+            if(data[0].length || data[1].length) {
+                saveFlashMemory(data[0].join(" ")+data[1].join(" "), text);
+            }
+            resp += "なるほど、"+text.replace("は、","は").replace(/です。$/,"なんですね！").replace(/。$/,"ね！");
+            wS = "";
+        });
         t("（",()=> { resp += wS+"@（"; wS = ""; });
         t("）",()=> { resp += wS+"@）"; wS = ""; });
         t("「",()=> { resp += wS+"@「"; wS = ""; });
@@ -122,7 +147,10 @@ async function chatbot(text) {
 }
 
 (async () => {
-    echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"));
+    echo(await chatbot("ごめん、あなたって誰まじで？"));
+    echo(await chatbot("こいつは、プログラマー。"));
+    echo(await chatbot("ごめん、あなたって誰まじで？"));
+    /*
     echo(await chatbot("私ってどんな名前なの？"));
     echo(await chatbot(`名前は？`));
     echo(await chatbot("あなたはチャットボットらしいですね。"));
@@ -136,6 +164,8 @@ async function chatbot(text) {
     echo(await chatbot(`なぜ空は青いのですか？`))
     echo(await chatbot(`もし時間を自由に操れたら何ができますか？`))
     echo(await chatbot(`AIは人間のように考えることができますか？`))
-    echo(await chatbot(`地球以外に生命が存在する可能性はありますか？`))
+    echo(await chatbot(`地球以外に生命が存在する可能性はありますか？`))*/
+
+    echo(`<br><br>${data.join("<br>")}`);
 })();
 </script>
