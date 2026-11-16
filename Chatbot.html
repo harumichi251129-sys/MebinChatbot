@@ -7,7 +7,7 @@
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","ところ","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
-let cut = []
+let type = [["何","なに","？","?"],[],[]]
 
 /*
 git add .
@@ -33,16 +33,25 @@ async function chatbot(text) {
     function saveFlashMemory(name, value) { localStorage.setItem(name, value); }
     function deleteFlashMemory(name) { localStorage.removeItem(name); }
 
-    function t(text,pr,isiE=1) { if(iE == 0 && code.startsWith(text)) { word.push(text); pr(); code=code.replace(text,""); if(isiE==1) { iE=1;} } arraySelector++; }
+    function t(text,pr,isiE=1) {
+        if(iE == 0 && code.startsWith(text)) {
+            word.push(text);
+            pr();
+            if(type[0].includes(text)) { writingType = "質問"; }
+            if(type[1].includes(text)) { writingType = "説明"; }
+            code=code.replace(text,"");
+            if(isiE==1) { iE=1;}
+        }
+        arraySelector++;
+    }
 
     while(code) {
         iE=0; ib=0; arraySelector = 0;
 
-        for(let i = 0;i < cut.length;i++) { t(cut[i],()=> { ib=1; },0); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +="@"+particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
-        t("こんにちは",()=> { resp += "@こんにちは、"+name+"さん"; });
-        t("こんばんは",()=> { resp += "@こんばんは、"+name+"さん"; });
+        t("こんにちは",()=> { resp += "@こんにちは、"+name; });
+        t("こんばんは",()=> { resp += "@こんばんは、"+name; });
         t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
         t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
 
@@ -70,9 +79,7 @@ async function chatbot(text) {
         t("など",()=> { resp += wS+"@など"; wS = ""; });
         t("では",()=> { resp += wS+"@では"; wS = ""; });
         t("なく",()=> { resp += wS+"@なく"; wS = ""; });
-        t("する",()=> { resp += wS+"@する"; wS = ""; });
         t("でも",()=> { resp += wS+"@でも"; wS = ""; });
-        t("いる",()=> { resp += wS+"@いる"; wS = ""; });
         t("ある",()=> { resp += wS+"@ある"; wS = ""; });
         t("その",()=> { resp += wS+"@その"; wS = ""; });
         t("この",()=> { resp += wS+"@この"; wS = ""; });
@@ -93,6 +100,12 @@ async function chatbot(text) {
         t("られ",()=> { resp += wS+"@られ"; wS = ""; });
         t("らし",()=> { resp += wS+"@らし"; wS = ""; });
 
+        //動詞(2文字)
+        t("いた",()=> { resp += wS+"@いた"; wS = ""; });
+        t("くる",()=> { resp += wS+"@くる"; wS = ""; });
+        t("する",()=> { resp += wS+"@する"; wS = ""; });
+        t("いる",()=> { resp += wS+"@いる"; wS = ""; });
+
         t("は",()=> { resp += wS+"@は"; wS = ""; });
         t("に",()=> { resp += wS+"@に"; wS = ""; });
         t("を",()=> { resp += wS+"@を"; wS = ""; });
@@ -105,12 +118,20 @@ async function chatbot(text) {
         t("な",()=> { resp += wS+"@な"; wS = ""; });
         t("も",()=> { resp += wS+"@も"; wS = ""; });
         t("る",()=> { resp += wS+"@る"; wS = ""; });
-        
-        t("何",()=> { resp += wS+"@それは、"; writingType = "質問"; wS = ""; });
-        t("誰",()=> { resp += wS+"@この人は、"; writingType = "質問";  wS = ""; });
+
+        //動詞(1文字)
+        t("う",()=> { resp += wS+"@う"; wS = ""; });
+        t("く",()=> { resp += wS+"@く"; wS = ""; });
+        t("す",()=> { resp += wS+"@す"; wS = ""; });
+        t("つ",()=> { resp += wS+"@つ"; wS = ""; });
+        t("ぬ",()=> { resp += wS+"@ぬ"; wS = ""; });
+        t("む",()=> { resp += wS+"@む"; wS = ""; });
+        t("ぐ",()=> { resp += wS+"@ぐ"; wS = ""; });
+        t("ぶ",()=> { resp += wS+"@ぶ"; wS = ""; });
+        t("る",()=> { resp += wS+"@る"; wS = ""; });
 
         t("！",()=> { resp += wS+"@！"; wS = ""; });
-        t("？",()=> { resp += wS+"@？"; writingType = "質問"; wS = ""; });
+        t("？",()=> { resp += wS+"@？"; wS = ""; });
         t("、",()=> { resp += wS+"@、"; wS = ""; });
         t("。",()=> { resp += wS+"@。"; wS = ""; });
         t("（",()=> { resp += wS+"@（"; wS = ""; });
@@ -120,7 +141,7 @@ async function chatbot(text) {
         t("(",()=> { resp += wS+"@("; wS = ""; });
         t(")",()=> { resp += wS+"@)"; wS = ""; });
         t("!",()=> { resp += wS+"@!"; wS = ""; });
-        t("?",()=> { resp += wS+"@?"; writingType = "質問"; wS = ""; });
+        t("?",()=> { resp += wS+"@?"; wS = ""; });
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
         //await waitfor(1)
@@ -165,36 +186,36 @@ async function chatbot(text) {
     echo(await chatbot("ちょっと待って！Wi-FiとBluetoothって何が違うの？"));
     echo(await chatbot("あなたが思う理想的な学校とは、どのような学校ですか？"));
     echo(await chatbot("もしも人間が空を自由に飛べたら、社会はどう変化する？"));    
-echo(await chatbot("電気はどのようにして作られているのですか？"));
-echo(await chatbot("ねえ、コンピューターはなぜ0と1だけで動くの？"));
-echo(await chatbot("世界で最も難しい数学の問題は何ですか？"));
-echo(await chatbot("仮に地球の重力が今の2倍になったら、どうなるんだろう？"));
-echo(await chatbot("お疲れ様です。効率的な時間管理の方法について教えていただけますか？"));
-echo(await chatbot("人間とAIが友達になることは可能だと思いますか？"));
-echo(await chatbot("もし自分だけが透明人間になれたら、何をしてみたい？"));
-echo(await chatbot("なぜ氷は水に浮くのでしょうか？"));
-echo(await chatbot("プログラミング言語を自作するには、何から始めればいい？"));
-echo(await chatbot("地球以外にも生命が存在する可能性はありますか？"));
-echo(await chatbot("おいおい、ロボットに意識が宿る日は来ると思うか？"));
-echo(await chatbot("世界中の言語が一つになったら、どんな問題が起こるでしょうか。"));
-echo(await chatbot("なぜ雷が発生するのか、簡単に説明してください。"));
-echo(await chatbot("あなたは自由と平等のどちらが大切だと思いますか？"));
-echo(await chatbot("もしインターネットが発明されなかったら、現代社会はどうなっていた？"));
-echo(await chatbot("マイコンでOSを動かすことはできるの？"));
-echo(await chatbot("ねぇねぇ、宇宙人って本当にいると思う？"));
-echo(await chatbot("世界で一番短いプログラムって何文字くらい？"));
-echo(await chatbot("なぜ人間は忘れるようにできているのでしょうか？"));
-echo(await chatbot("もし地球が立方体だったら、どうなると思う？"));
-echo(await chatbot("ArduinoとESP32の違いを教えてください。"));
-echo(await chatbot("人間の寿命が500年になったら、社会制度はどう変わる？"));
-echo(await chatbot("あのさ、AIは間違った情報を自信満々に話すことがあるの？"));
-echo(await chatbot("最も美しい数学の公式は何だと思いますか？"));
-echo(await chatbot("なぜ海水は塩辛いの？"));
-echo(await chatbot("もし全世界の人が同時にジャンプしたら、地球は動く？"));
-echo(await chatbot("コンピューターのメモリとストレージは何が違うんですか？"));
-echo(await chatbot("あなたが新しい国を作るなら、どんな法律を制定しますか？"));
-echo(await chatbot("どうして鳥は空を飛べるのに、人間は飛べないの？"));
-echo(await chatbot("人工知能に創造性はあるのでしょうか。"));
+    echo(await chatbot("電気はどのようにして作られているのですか？"));
+    echo(await chatbot("ねえ、コンピューターはなぜ0と1だけで動くの？"));
+    echo(await chatbot("世界で最も難しい数学の問題は何ですか？"));
+    echo(await chatbot("仮に地球の重力が今の2倍になったら、どうなるんだろう？"));
+    echo(await chatbot("お疲れ様です。効率的な時間管理の方法について教えていただけますか？"));
+    echo(await chatbot("人間とAIが友達になることは可能だと思いますか？"));
+    echo(await chatbot("もし自分だけが透明人間になれたら、何をしてみたい？"));
+    echo(await chatbot("なぜ氷は水に浮くのでしょうか？"));
+    echo(await chatbot("プログラミング言語を自作するには、何から始めればいい？"));
+    echo(await chatbot("地球以外にも生命が存在する可能性はありますか？"));
+    echo(await chatbot("おいおい、ロボットに意識が宿る日は来ると思うか？"));
+    echo(await chatbot("世界中の言語が一つになったら、どんな問題が起こるでしょうか。"));
+    echo(await chatbot("なぜ雷が発生するのか、簡単に説明してください。"));
+    echo(await chatbot("あなたは自由と平等のどちらが大切だと思いますか？"));
+    echo(await chatbot("もしインターネットが発明されなかったら、現代社会はどうなっていた？"));
+    echo(await chatbot("マイコンでOSを動かすことはできるの？"));
+    echo(await chatbot("ねぇねぇ、宇宙人って本当にいると思う？"));
+    echo(await chatbot("世界で一番短いプログラムって何文字くらい？"));
+    echo(await chatbot("なぜ人間は忘れるようにできているのでしょうか？"));
+    echo(await chatbot("もし地球が立方体だったら、どうなると思う？"));
+    echo(await chatbot("ArduinoとESP32の違いを教えてください。"));
+    echo(await chatbot("人間の寿命が500年になったら、社会制度はどう変わる？"));
+    echo(await chatbot("あのさ、AIは間違った情報を自信満々に話すことがあるの？"));
+    echo(await chatbot("最も美しい数学の公式は何だと思いますか？"));
+    echo(await chatbot("なぜ海水は塩辛いの？"));
+    echo(await chatbot("もし全世界の人が同時にジャンプしたら、地球は動く？"));
+    echo(await chatbot("コンピューターのメモリとストレージは何が違うんですか？"));
+    echo(await chatbot("あなたが新しい国を作るなら、どんな法律を制定しますか？"));
+    echo(await chatbot("どうして鳥は空を飛べるのに、人間は飛べないの？"));
+    echo(await chatbot("人工知能に創造性はあるのでしょうか。"));
 echo(await chatbot("ねえ、プログラムのバグってどうして発生するの？"));
 echo(await chatbot("もし地球の自転が止まったら、どうなるのだろうか？"));
 echo(await chatbot("日本の四季はどうして生まれるんですか？"));
