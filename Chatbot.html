@@ -7,6 +7,7 @@
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
+let cutParticle = ["結局","つまり","すなわち","しばしば","らしい","どんな","ところ","すれば","された","いった","よって","って","して","こと","どの","から","いい","とは","なの","なぜ","もし","する","うち","です","ます","など"];
 
 /*
 git add .
@@ -23,6 +24,9 @@ async function chatbot(text) {
     let word = [];
     let iE = 0;
     let ib = 0;
+
+    function loadFlashMemory(name) { return localStorage.getItem(name); }
+    function saveFlashMemory(name, value) { localStorage.setItem(name, value); }
 
     function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
