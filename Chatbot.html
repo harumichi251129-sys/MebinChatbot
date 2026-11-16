@@ -1,0 +1,166 @@
+<div id="console"></div>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<script>
+
+textOutput = document.getElementById("console");
+
+let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
+
+/*
+git add .
+git commit -m "Add more particle variations"
+*/
+
+function echo(text) { textOutput.innerHTML += text; }
+
+async function chatbot(text) {
+    let code = text;
+    let resp = "";
+    let wS = "";
+    let word = [];
+    let iE = 0;
+    let ib = 0;
+
+    function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+
+    while(code) {
+        word = []; iE=0; ib=0;
+
+        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
+
+        t("こんにちは",()=> { resp += "@こんにちは"; });
+        t("こんばんは",()=> { resp += "@こんばんは"; });
+        t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
+        t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
+
+        t("らしい",()=> { resp += wS+"@らしい"; wS = ""; });
+        t("どんな",()=> { resp += wS+"@どんな"; wS = ""; });
+        t("ところ",()=> { resp += wS+"@ところ"; wS = ""; });
+        t("すれば",()=> { resp += wS+"@すれば"; wS = ""; });
+        t("された",()=> { resp += wS+"@された"; wS = ""; });
+        t("いった",()=> { resp += wS+"@いった"; wS = ""; });
+        t("よって",()=> { resp += wS+"@よって"; wS = ""; });
+
+        t("って",()=> { resp += wS+"@って"; wS = ""; });
+        t("して",()=> { resp += wS+"@して"; wS = ""; });
+        t("こと",()=> { resp += wS+"@こと"; wS = ""; });
+        t("どの",()=> { resp += wS+"@どの"; wS = ""; });
+        t("から",()=> { resp += wS+"@から"; wS = ""; });
+        t("いい",()=> { resp += wS+"@いい"; wS = ""; });
+        t("とは",()=> { resp += wS+"@とは"; wS = ""; });
+        t("なの",()=> { resp += wS+"@なの"; wS = ""; });
+        t("なぜ",()=> { resp += wS+"@なぜ"; wS = ""; });
+        t("もし",()=> { resp += wS+"@もし"; wS = ""; });
+        t("する",()=> { resp += wS+"@する"; wS = ""; });
+        t("うち",()=> { resp += wS+"@うち"; wS = ""; });
+        t("です",()=> { resp += wS+"@です"; wS = ""; });
+        t("ます",()=> { resp += wS+"@ます"; wS = ""; });
+        t("など",()=> { resp += wS+"@など"; wS = ""; });
+        t("では",()=> { resp += wS+"@では"; wS = ""; });
+        t("なく",()=> { resp += wS+"@なく"; wS = ""; });
+        t("する",()=> { resp += wS+"@する"; wS = ""; });
+        t("でも",()=> { resp += wS+"@でも"; wS = ""; });
+        t("いる",()=> { resp += wS+"@いる"; wS = ""; });
+        t("ある",()=> { resp += wS+"@ある"; wS = ""; });
+        t("その",()=> { resp += wS+"@その"; wS = ""; });
+        t("この",()=> { resp += wS+"@この"; wS = ""; });
+        t("なり",()=> { resp += wS+"@なり"; wS = ""; });
+        t("なる",()=> { resp += wS+"@なる"; wS = ""; });
+        t("また",()=> { resp += wS+"@また"; wS = ""; });
+        t("ない",()=> { resp += wS+"@ない"; wS = ""; });
+        t("いう",()=> { resp += wS+"@いう"; wS = ""; });
+        t("より",()=> { resp += wS+"@より"; wS = ""; });
+        t("だけ",()=> { resp += wS+"@だけ"; wS = ""; });
+        t("どう",()=> { resp += wS+"@どう"; wS = ""; });
+        t("なれ",()=> { resp += wS+"@なれ"; wS = ""; });
+        t("でき",()=> { resp += wS+"@でき"; wS = ""; });
+        t("たら",()=> { resp += wS+"@たら"; wS = ""; });
+        t("した",()=> { resp += wS+"@した"; wS = ""; });
+        t("なん",()=> { resp += wS+"@なん"; wS = ""; });
+        t("らし",()=> { resp += wS+"@らし"; wS = ""; });
+        t("られ",()=> { resp += wS+"@られ"; wS = ""; });
+        t("らし",()=> { resp += wS+"@らし"; wS = ""; });
+
+        t("は",()=> { resp += wS+"@は"; wS = ""; });
+        t("に",()=> { resp += wS+"@に"; wS = ""; });
+        t("を",()=> { resp += wS+"@を"; wS = ""; });
+        t("が",()=> { resp += wS+"@が"; wS = ""; });
+        t("の",()=> { resp += wS+"@の"; wS = ""; });
+        t("か",()=> { resp += wS+"@か"; wS = ""; });
+        t("と",()=> { resp += wS+"@と"; wS = ""; });
+        t("で",()=> { resp += wS+"@で"; wS = ""; });
+        t("や",()=> { resp += wS+"@や"; wS = ""; });
+        t("な",()=> { resp += wS+"@な"; wS = ""; });
+        t("も",()=> { resp += wS+"@も"; wS = ""; });
+        t("る",()=> { resp += wS+"@る"; wS = ""; });
+
+        t("！",()=> { resp += wS+"@！"; wS = ""; });
+        t("？",()=> { resp += wS+"@？"; wS = ""; });
+        t("、",()=> { resp += wS+"@、"; wS = ""; });
+        t("。",()=> { resp += wS+"@。"; wS = ""; });
+        t("（",()=> { resp += wS+"@（"; wS = ""; });
+        t("）",()=> { resp += wS+"@）"; wS = ""; });
+        t("「",()=> { resp += wS+"@「"; wS = ""; });
+        t("」",()=> { resp += wS+"@」"; wS = ""; });
+        t("(",()=> { resp += wS+"@("; wS = ""; });
+        t(")",()=> { resp += wS+"@)"; wS = ""; });
+        t("!",()=> { resp += wS+"@!"; wS = ""; });
+        t("?",()=> { resp += wS+"@?"; wS = ""; });
+
+        if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
+        //await waitfor(1)
+    }
+
+    return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+}
+
+(async () => {
+    echo(await chatbot(`HTML[注釈 1]またはHyperText Markup Language（ハイパーテキスト マークアップ ランゲージ）[注釈 2]は、ハイパーテキストを記述するためのマークアップ言語の1つで、プログラミング言語ではない。主にWorld Wide Web(WWW)において、ウェブページを表現するために用いられる。ハイパーリンクや画像等のマルチメディアを埋め込むハイパーテキストとしての機能、見出しや段落といったドキュメントの抽象構造、フォントや文字色の指定などの見た目の指定、などといった機能がある。
+ティム・バーナーズ＝リーによってSGMLを元に開発された。1993年に最初のドラフトが公開され、最初期においてはIETFが、1996年以降はW3Cが、2019年以降はWHATWGが規格の策定、仕様公開を行なっている[1][2]。
+HTMLは木構造(入子構造)のマークアップ言語であり、形式言語である。「プレーンテキストの文書を要素で括って意味付け」という一般的な説明[3]は間違いである。「『タグ』と『タグ』で括られたもの全体」が「要素」(element)であり、タグすなわち要素ではない。マークアップ言語としての特徴は、先祖であるSGMLや、兄弟のXMLと共通しているため、以下ではWWWというシステムにおける「ハイパーテキスト記述言語」としての側面についてのみ記述する。
+HTMLの要素には、文書を表現するものとしてごく一般的なものである見出し(ヘッドライン、h1〜)、段落(パラグラフ、p)、ハイパーテキストとして特徴的な「アンカー」(a)に関係するもの、画像など(imgなど)の電子メディア的なもの、などがある。また文字色の指定などといった、意味ではなく直接見た目のみを指定するようなものは、近年ではスタイルシートなどに分離するべきとされているが、歴史的事情、及び、スタイルシートよりもこの、HTMLでの記述が簡便になる場合が度々あること[注釈 3]から現在でもしばしば使われている。その他主要な要素は、HTMLの要素の記事で解説している。`))
+    echo("<br><br>")
+
+    echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
+    echo(await chatbot("私ってどんな名前なの？"))
+    echo(await chatbot(`名前は？`))
+    echo(await chatbot("あなたはチャットボットらしいですね。"))
+
+    echo(await chatbot(`こんにちは！あなたは何ができますか？`))
+    echo(await chatbot(`人工知能（AI）とは何ですか？`))
+    echo(await chatbot(`宇宙の果てには何がありますか？`))
+    echo(await chatbot(`人間の脳はどのように記憶していますか？`))
+    echo(await chatbot(`未来の世界はどうなっていると思いますか？`))
+    echo(await chatbot(`プログラミングを始めるには何から学べばいいですか？`))
+    echo(await chatbot(`なぜ空は青いのですか？`))
+    echo(await chatbot(`もし時間を自由に操れたら何ができますか？`))
+    echo(await chatbot(`AIは人間のように考えることができますか？`))
+    echo(await chatbot(`地球以外に生命が存在する可能性はありますか？`))
+    echo(await chatbot(`すもももももももものうち`))
+    
+    echo("<br><br>")
+
+    echo(await chatbot(`今日の天気はどうなっていますか？`))
+    echo(await chatbot(`日本で一番高い山は何ですか？`))
+    echo(await chatbot(`海の水はなぜ塩辛いのですか？`))
+    echo(await chatbot(`朝ごはんには何を食べるといいですか？`))
+    echo(await chatbot(`音楽を聴くと気分が変わるのはなぜですか？`))
+    echo(await chatbot(`植物はどのようにして水を吸収しますか？`))
+    echo(await chatbot(`猫はどうして高いところが好きなの？`))
+    echo(await chatbot(`電車は何時に駅に到着しますか？`))
+    echo(await chatbot(`図書館で本を借りるにはどうすればいいですか？`))
+    echo(await chatbot(`雨が降った後に虹が見えることがあります。`))
+    echo(await chatbot(`週末は友達と公園に行く予定です。`))
+    echo(await chatbot(`料理をするときには火の扱いに気をつけてください。`))
+    echo(await chatbot(`この映画はどんな人におすすめですか？`))
+    echo(await chatbot(`新しい言語を学ぶには毎日練習することが大切です。`))
+    echo(await chatbot(`桜の花はいつごろ咲きますか？`))
+    echo(await chatbot(`朝と夜では空の色が違って見えますね。`))
+    echo(await chatbot(`もし一日だけ透明人間になれたら何をしますか？`))
+    echo(await chatbot(`この道をまっすぐ進むと駅があります。`))
+    echo(await chatbot(`昨日読んだ本の続きが気になります！`))
+    echo(await chatbot(`小さな発見が毎日の楽しみになります。`))
+})();
+</script>
