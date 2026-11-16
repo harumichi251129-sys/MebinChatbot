@@ -14,6 +14,7 @@ git commit -m "Add more particle variations"
 */
 
 function echo(text) { textOutput.innerHTML += text; }
+const name = "Aoki";
 
 async function chatbot(text) {
     let code = text;
@@ -30,8 +31,9 @@ async function chatbot(text) {
 
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
-        t("こんにちは",()=> { resp += "@こんにちは"; });
-        t("こんばんは",()=> { resp += "@こんばんは"; });
+        t("こんにちは",()=> { resp += "こんにちは、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
+        t("こんばんは",()=> { resp += "こんばんは、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
+        t("おやすみ",()=> { resp += "おやすみ、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
         t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
         t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
 
