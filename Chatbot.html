@@ -27,6 +27,7 @@ async function chatbot(text) {
 
     function loadFlashMemory(name) { return localStorage.getItem(name); }
     function saveFlashMemory(name, value) { localStorage.setItem(name, value); }
+    function deleteFlashMemory(name) { localStorage.removeItem(name); }
 
     function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
