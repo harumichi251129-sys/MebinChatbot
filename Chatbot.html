@@ -38,8 +38,6 @@ async function chatbot(text) {
         t("こんにちは",()=> { resp += "こんにちは、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
         t("こんばんは",()=> { resp += "こんばんは、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
         t("おやすみ",()=> { resp += "おやすみ、"; if(name.endsWith("さん")) { resp += name; } else { resp += name+"さん"; } });
-        t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
-        t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
 
         t("らしい",()=> { resp += wS+"@らしい"; wS = ""; });
         t("どんな",()=> { resp += wS+"@どんな"; wS = ""; });
