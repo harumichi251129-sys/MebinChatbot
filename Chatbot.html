@@ -147,9 +147,7 @@ async function chatbot(text) {
 }
 
 (async () => {
-    echo(await chatbot("ごめん、あなたって誰まじで？"));
-    echo(await chatbot("こいつは、プログラマー。"));
-    echo(await chatbot("ごめん、あなたって誰まじで？"));
+    echo(await chatbot(prompt()));
     /*
     echo(await chatbot("私ってどんな名前なの？"));
     echo(await chatbot(`名前は？`));
