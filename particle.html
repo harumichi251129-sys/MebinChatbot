@@ -36,7 +36,7 @@ const words = `何
 他
 ところ`;
 
-const text = 'let particle = ["' + words.split("\n").sort((a, b) => b.length - a.length).join('","') + '"];';
+const text = 'code = code.replace(/(.*?)(' + words.split("\n").sort((a, b) => b.length - a.length).join('|') + ')/, "$1");';
 
 let particle = ["いつごろ",
 "まっすぐ",
@@ -64,6 +64,4 @@ let particle = ["いつごろ",
 
 
 echo(text);
-//echo("<br><br><br>")
-//echo(particle)
 </script>
