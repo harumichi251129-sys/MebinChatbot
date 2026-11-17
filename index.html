@@ -23,10 +23,10 @@ async function chatbot(text) {
     let iE = 0;
     let ib = 0;
 
-    function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) {word.push(text); pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
-        word = []; iE=0; ib=0;
+        iE=0; ib=0;
 
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
@@ -113,8 +113,10 @@ async function chatbot(text) {
         //await waitfor(1)
     }
 
+    echo(`${word.join("<br>")}<br>`)
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
+
 
 (async () => {
     echo(await chatbot(`HTML[注釈 1]またはHyperText Markup Language（ハイパーテキスト マークアップ ランゲージ）[注釈 2]は、ハイパーテキストを記述するためのマークアップ言語の1つで、プログラミング言語ではない。主にWorld Wide Web(WWW)において、ウェブページを表現するために用いられる。ハイパーリンクや画像等のマルチメディアを埋め込むハイパーテキストとしての機能、見出しや段落といったドキュメントの抽象構造、フォントや文字色の指定などの見た目の指定、などといった機能がある。
