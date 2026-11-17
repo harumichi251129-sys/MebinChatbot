@@ -7,9 +7,6 @@
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
-let quesParticle = ["どんな","って","なん","なの","とは","どの","何時","何","か","？","?"];
-let mem = [["名前","Mebin"],["苗字","1.0"]]
-let name = [["わたし","あなた"],["あなた","わたし"]];
 
 /*
 git add .
@@ -25,23 +22,16 @@ async function chatbot(text) {
     let word = [];
     let iE = 0;
     let ib = 0;
-    let type = "説明";
-
-    for(let i = 0;i < quesParticle.length;i++) { if(code.includes(quesParticle[i])) { type = "質問"; break; } }
 
     function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
         word = []; iE=0; ib=0;
 
-        if(type == "質問") for(let i = 0;i < name.length;i++) { t(name[i][0],()=> { resp += wS+"@"+name[i][1]; wS = ""; },0); if(ib==1) break; }
-        for(let i = 0;i < mem.length;i++) { t(mem[i][0],()=> { resp += wS+"@"+mem[i][1]; wS = ""; },0); if(ib==1) break; }
-        for(let i = 0;i < quesParticle.length;i++) { t(quesParticle[i],()=> { ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
         t("こんにちは",()=> { resp += "@こんにちは"; });
         t("こんばんは",()=> { resp += "@こんばんは"; });
-        
         t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
         t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
 
@@ -97,7 +87,7 @@ async function chatbot(text) {
         t("に",()=> { resp += wS+"@に"; wS = ""; });
         t("を",()=> { resp += wS+"@を"; wS = ""; });
         t("が",()=> { resp += wS+"@が"; wS = ""; });
-        t("の",()=> { resp += wS+"@は"; wS = ""; });
+        t("の",()=> { resp += wS+"@の"; wS = ""; });
         t("か",()=> { resp += wS+"@か"; wS = ""; });
         t("と",()=> { resp += wS+"@と"; wS = ""; });
         t("で",()=> { resp += wS+"@で"; wS = ""; });
@@ -123,15 +113,16 @@ async function chatbot(text) {
         //await waitfor(1)
     }
 
-    if(!code.endsWith("。") && !code.endsWith("？") && !code.endsWith("！")) { resp+="！"; }
-
-    echo(`<br>${type}<br>${text}<br>`);
-
-    return resp.replaceAll("@","").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 (async () => {
-    echo(await chatbot("こんにちはー！"))
+    echo(await chatbot(`HTML[注釈 1]またはHyperText Markup Language（ハイパーテキスト マークアップ ランゲージ）[注釈 2]は、ハイパーテキストを記述するためのマークアップ言語の1つで、プログラミング言語ではない。主にWorld Wide Web(WWW)において、ウェブページを表現するために用いられる。ハイパーリンクや画像等のマルチメディアを埋め込むハイパーテキストとしての機能、見出しや段落といったドキュメントの抽象構造、フォントや文字色の指定などの見た目の指定、などといった機能がある。
+ティム・バーナーズ＝リーによってSGMLを元に開発された。1993年に最初のドラフトが公開され、最初期においてはIETFが、1996年以降はW3Cが、2019年以降はWHATWGが規格の策定、仕様公開を行なっている[1][2]。
+HTMLは木構造(入子構造)のマークアップ言語であり、形式言語である。「プレーンテキストの文書を要素で括って意味付け」という一般的な説明[3]は間違いである。「『タグ』と『タグ』で括られたもの全体」が「要素」(element)であり、タグすなわち要素ではない。マークアップ言語としての特徴は、先祖であるSGMLや、兄弟のXMLと共通しているため、以下ではWWWというシステムにおける「ハイパーテキスト記述言語」としての側面についてのみ記述する。
+HTMLの要素には、文書を表現するものとしてごく一般的なものである見出し(ヘッドライン、h1〜)、段落(パラグラフ、p)、ハイパーテキストとして特徴的な「アンカー」(a)に関係するもの、画像など(imgなど)の電子メディア的なもの、などがある。また文字色の指定などといった、意味ではなく直接見た目のみを指定するようなものは、近年ではスタイルシートなどに分離するべきとされているが、歴史的事情、及び、スタイルシートよりもこの、HTMLでの記述が簡便になる場合が度々あること[注釈 3]から現在でもしばしば使われている。その他主要な要素は、HTMLの要素の記事で解説している。`))
+    echo("<br><br>")
+
     echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
     echo(await chatbot("私ってどんな名前なの？"))
     echo(await chatbot(`名前は？`))
