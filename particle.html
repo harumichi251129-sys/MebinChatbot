@@ -34,71 +34,9 @@ const words = `何
 あなた
 わたし
 他
-ところ
-は
-が
-を
-に
-へ
-で
-と
-や
-の
-も
-か
-な
-ね
-よ
-わ
-ぞ
-ぜ
-さ
-から
-まで
-より
-では
-とは
-には
-にも
-へは
-について
-によって
-において
-に対して
-に関して
-により
-にとって
-に向けて
-に比べて
-として
-としては
-のため
-のに
-なのに
-ばかり
-くらい
-ぐらい
-ほど
-しか
-など
-のみ
-ずつ
-きり
-って
-こそ
-さえ
-でも
-とか
-なり
-けれど
-けれども
-ながら
-たり
-ても
-ので
-て`;
+ところ`;
 
-const text = 'code = code.replace(/(.*?)(' + words.split(/\r?\n/).sort((a, b) => b.length - a.length).join('|') + ')/, "$1");';
+const text = 'let particle = ["' + words.split("\n").sort((a, b) => b.length - a.length).join('","') + '"];';
 
 let particle = ["いつごろ",
 "まっすぐ",
@@ -126,4 +64,6 @@ let particle = ["いつごろ",
 
 
 echo(text);
+//echo("<br><br><br>")
+//echo(particle)
 </script>
