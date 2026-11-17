@@ -34,7 +34,7 @@ async function chatbot(text) {
     while(code) {
         word = []; iE=0; ib=0;
 
-        for(let i = 0;i < name.length;i++) { t(name[i][0],()=> { resp += wS+"@"+name[i][1]; wS = ""; },0); if(ib==1) break; }
+        if(type == "質問") for(let i = 0;i < name.length;i++) { t(name[i][0],()=> { resp += wS+"@"+name[i][1]; wS = ""; },0); if(ib==1) break; }
         for(let i = 0;i < mem.length;i++) { t(mem[i][0],()=> { resp += wS+"@"+mem[i][1]; wS = ""; },0); if(ib==1) break; }
         for(let i = 0;i < quesParticle.length;i++) { t(quesParticle[i],()=> { ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
@@ -122,6 +122,8 @@ async function chatbot(text) {
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
         //await waitfor(1)
     }
+
+    if(!code.endsWith("。") && !code.endsWith("？") && !code.endsWith("！")) { resp+="！"; }
 
     echo(`<br>${type}<br>${text}<br>`);
 
