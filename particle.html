@@ -8,7 +8,7 @@
 canvas = document.getElementById("result");
 textOutput = document.getElementById("console");
 
-const words = `何
+/*const words = `何
 人工
 地球
 すもも
@@ -34,36 +34,25 @@ const words = `何
 あなた
 わたし
 他
-ところ`;
+ところ`;*/
 
-const text = 'let particle = ["' + words.split("\n").sort((a, b) => b.length - a.length).join('","') + '"];';
+let words = `って
+何
+なん
+か
+？
+?
+どんな
+なの
+とは
+どの`;
 
-let particle = ["いつごろ",
-"まっすぐ",
-"すもも",
-"ごはん",
-"新しい",
-"あした",
-"小さな",
-"人工",
-"地球",
-"もも",
-"毎日",
-"昨日",
-"今日",
-"明日",
-"とき",
-"だけ",
-"名前",
-"何時",
-"一番",
-"透明",
-"何",
-"前",
-"後"].join("<br>");
+const text = 'let quesParticle = ["' + words.split("\n").sort((a, b) => b.length - a.length).join('","') + '"];';
+
+let quesParticle = ["何","どんな","ど","なぜ","どう","なれ","でき","なん"].join("<br>");
 
 
 echo(text);
-//echo("<br><br><br>")
-//echo(particle)
+echo("<br><br><br>")
+echo(quesParticle)
 </script>

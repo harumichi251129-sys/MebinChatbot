@@ -7,7 +7,8 @@
 textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
-let quesParticle = ["何","なの","どんな","どの","なぜ","もし","どう","なん"];
+let quesParticle = ["どんな","って","なん","なの","とは","どの","何","か","？","?"];
+
 
 /*
 git add .
@@ -23,13 +24,16 @@ async function chatbot(text) {
     let word = [];
     let iE = 0;
     let ib = 0;
-    let type = "質問";
+    let type = "説明";
+
+    for(let i = 0;i < quesParticle.length;i++) { if(code.includes(quesParticle[i])) { type = "質問"; break; } }
 
     function t(text,pr,isiE=1) { word.push(text); if(iE == 0 && code.startsWith(text)) { pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
         word = []; iE=0; ib=0;
 
+        for(let i = 0;i < quesParticle.length;i++) { t(quesParticle[i],()=> { ib=1; },0); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
         t("こんにちは",()=> { resp += "@こんにちは"; });
@@ -115,10 +119,13 @@ async function chatbot(text) {
         //await waitfor(1)
     }
 
+    echo(`<br><br>${type}<br><br>`)
+
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 (async () => {
+    echo(await chatbot("こんにちはー！"))
     echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
     echo(await chatbot("私ってどんな名前なの？"))
     echo(await chatbot(`名前は？`))
