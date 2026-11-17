@@ -8,7 +8,8 @@ textOutput = document.getElementById("console");
 
 let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
 let quesParticle = ["どんな","って","なん","なの","とは","どの","何時","何","か","？","?"];
-
+let mem = [["名前","Mebin"],["苗字","1.0"]]
+let name = [["わたし","あなた"],["あなた","わたし"]];
 
 /*
 git add .
@@ -33,6 +34,8 @@ async function chatbot(text) {
     while(code) {
         word = []; iE=0; ib=0;
 
+        for(let i = 0;i < name.length;i++) { t(name[i][0],()=> { resp += wS+"@"+name[i][1]; wS = ""; },0); if(ib==1) break; }
+        for(let i = 0;i < mem.length;i++) { t(mem[i][0],()=> { resp += wS+"@"+mem[i][1]; wS = ""; },0); if(ib==1) break; }
         for(let i = 0;i < quesParticle.length;i++) { t(quesParticle[i],()=> { ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
 
@@ -94,7 +97,7 @@ async function chatbot(text) {
         t("に",()=> { resp += wS+"@に"; wS = ""; });
         t("を",()=> { resp += wS+"@を"; wS = ""; });
         t("が",()=> { resp += wS+"@が"; wS = ""; });
-        t("の",()=> { resp += wS+"@の"; wS = ""; });
+        t("の",()=> { resp += wS+"@は"; wS = ""; });
         t("か",()=> { resp += wS+"@か"; wS = ""; });
         t("と",()=> { resp += wS+"@と"; wS = ""; });
         t("で",()=> { resp += wS+"@で"; wS = ""; });
@@ -120,9 +123,9 @@ async function chatbot(text) {
         //await waitfor(1)
     }
 
-    echo(`<br>${type}<br>`)
+    echo(`<br>${type}<br>${text}<br>`);
 
-    return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return resp.replaceAll("@","").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 (async () => {
