@@ -84,7 +84,21 @@ async function chatbot(text) {
     }
 
     if(wD[0] && wD[1] && wD[2]) {
-        result += "なるほど、"+wD[0]+"は"+wD[2]+"を"+wD[1]+"か、という質問ですね。";
+        result += "なるほど、"+wD[0]+"は"+wD[1]+"で、"+wD[2]+"、という質問ですね。";
+    } else if(wD[0] && wD[1]) {
+        result += "なるほど、"+wD[0]+"は"+wD[1]+"、という質問ですね。";
+    } else if(wD[1] && wD[2]) {
+        result += "なるほど、"+wD[1]+"で、"+wD[2]+"、という質問ですね。";
+    } else if(wD[0] && wD[2]) {
+        result += "なるほど、"+wD[0]+"は"+wD[2]+"、という質問ですね。";
+    } else if(wD[0]) {
+        result += "なるほど、"+wD[0]+"は何、という質問ですね。";
+    } else if(wD[1]) {
+        result += "なるほど、"+wD[1]+"、という質問ですね。";
+    } else if(wD[2]) {
+        result += "なるほど、"+wD[2]+"、という質問ですね。";
+    } else {
+        result += "なるほど、"+text+"、という質問ですね。";
     }
 
     wD[1] += wS;
