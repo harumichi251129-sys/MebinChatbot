@@ -23,7 +23,7 @@ async function chatbot(text) {
     let iE = 0;
     let ib = 0;
 
-    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) {word.push(text); pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); word.push(text); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
         iE=0; ib=0;
@@ -113,7 +113,6 @@ async function chatbot(text) {
         //await waitfor(1)
     }
 
-    echo(`${word.join("<br>")}<br>`)
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 

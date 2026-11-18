@@ -19,101 +19,50 @@ async function chatbot(text) {
     let code = text;
     let resp = "";
     let wS = "";
-    let word = [];
+    let wD = ["","",""];
     let iE = 0;
     let ib = 0;
 
-    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) {word.push(text); pr(); resp+="@"; code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
         iE=0; ib=0;
 
-        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i]+"@";  ib=1; },0); if(ib==1) break; }
+        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i];  ib=1; },0); if(ib==1) break; }
 
-        t("こんにちは",()=> { resp += "@こんにちは"; });
-        t("こんばんは",()=> { resp += "@こんばんは"; });
-        t("すなわち",()=> { resp += wS+"@すなわち"; wS = ""; });
-        t("しばしば",()=> { resp += wS+"@しばしば"; wS = ""; });
+        t("こんにちは",()=> { resp += "こんにちは"; });
+        t("こんばんは",()=> { resp += "こんばんは"; });
 
-        t("らしい",()=> { resp += wS+"@らしい"; wS = ""; });
-        t("どんな",()=> { resp += wS+"@どんな"; wS = ""; });
-        t("ところ",()=> { resp += wS+"@ところ"; wS = ""; });
-        t("すれば",()=> { resp += wS+"@すれば"; wS = ""; });
-        t("された",()=> { resp += wS+"@された"; wS = ""; });
-        t("いった",()=> { resp += wS+"@いった"; wS = ""; });
-        t("よって",()=> { resp += wS+"@よって"; wS = ""; });
+        t("って",()=> { resp += wS+"って"; wD[0]+= wS; wS = ""; });
+        t("とは",()=> { resp += wS+"とは"; wD[0]+= wS; wS = ""; });
+        t("では",()=> { resp += wS+"では"; wD[0]+= wS; wS = ""; });
 
-        t("って",()=> { resp += wS+"@って"; wS = ""; });
-        t("して",()=> { resp += wS+"@して"; wS = ""; });
-        t("こと",()=> { resp += wS+"@こと"; wS = ""; });
-        t("どの",()=> { resp += wS+"@どの"; wS = ""; });
-        t("から",()=> { resp += wS+"@から"; wS = ""; });
-        t("いい",()=> { resp += wS+"@いい"; wS = ""; });
-        t("とは",()=> { resp += wS+"@とは"; wS = ""; });
-        t("なの",()=> { resp += wS+"@なの"; wS = ""; });
-        t("なぜ",()=> { resp += wS+"@なぜ"; wS = ""; });
-        t("もし",()=> { resp += wS+"@もし"; wS = ""; });
-        t("する",()=> { resp += wS+"@する"; wS = ""; });
-        t("うち",()=> { resp += wS+"@うち"; wS = ""; });
-        t("です",()=> { resp += wS+"@です"; wS = ""; });
-        t("ます",()=> { resp += wS+"@ます"; wS = ""; });
-        t("など",()=> { resp += wS+"@など"; wS = ""; });
-        t("では",()=> { resp += wS+"@では"; wS = ""; });
-        t("なく",()=> { resp += wS+"@なく"; wS = ""; });
-        t("する",()=> { resp += wS+"@する"; wS = ""; });
-        t("でも",()=> { resp += wS+"@でも"; wS = ""; });
-        t("いる",()=> { resp += wS+"@いる"; wS = ""; });
-        t("ある",()=> { resp += wS+"@ある"; wS = ""; });
-        t("その",()=> { resp += wS+"@その"; wS = ""; });
-        t("この",()=> { resp += wS+"@この"; wS = ""; });
-        t("なり",()=> { resp += wS+"@なり"; wS = ""; });
-        t("なる",()=> { resp += wS+"@なる"; wS = ""; });
-        t("また",()=> { resp += wS+"@また"; wS = ""; });
-        t("ない",()=> { resp += wS+"@ない"; wS = ""; });
-        t("いう",()=> { resp += wS+"@いう"; wS = ""; });
-        t("より",()=> { resp += wS+"@より"; wS = ""; });
-        t("だけ",()=> { resp += wS+"@だけ"; wS = ""; });
-        t("どう",()=> { resp += wS+"@どう"; wS = ""; });
-        t("なれ",()=> { resp += wS+"@なれ"; wS = ""; });
-        t("でき",()=> { resp += wS+"@でき"; wS = ""; });
-        t("たら",()=> { resp += wS+"@たら"; wS = ""; });
-        t("した",()=> { resp += wS+"@した"; wS = ""; });
-        t("なん",()=> { resp += wS+"@なん"; wS = ""; });
-        t("らし",()=> { resp += wS+"@らし"; wS = ""; });
-        t("られ",()=> { resp += wS+"@られ"; wS = ""; });
-        t("らし",()=> { resp += wS+"@らし"; wS = ""; });
-
-        t("は",()=> { resp += wS+"@は"; wS = ""; });
-        t("に",()=> { resp += wS+"@に"; wS = ""; });
-        t("を",()=> { resp += wS+"@を"; wS = ""; });
-        t("が",()=> { resp += wS+"@が"; wS = ""; });
-        t("の",()=> { resp += wS+"@の"; wS = ""; });
-        t("か",()=> { resp += wS+"@か"; wS = ""; });
-        t("と",()=> { resp += wS+"@と"; wS = ""; });
-        t("で",()=> { resp += wS+"@で"; wS = ""; });
-        t("や",()=> { resp += wS+"@や"; wS = ""; });
-        t("な",()=> { resp += wS+"@な"; wS = ""; });
-        t("も",()=> { resp += wS+"@も"; wS = ""; });
-        t("る",()=> { resp += wS+"@る"; wS = ""; });
-
-        t("！",()=> { resp += wS+"@！"; wS = ""; });
-        t("？",()=> { resp += wS+"@？"; wS = ""; });
-        t("、",()=> { resp += wS+"@、"; wS = ""; });
-        t("。",()=> { resp += wS+"@。"; wS = ""; });
-        t("（",()=> { resp += wS+"@（"; wS = ""; });
-        t("）",()=> { resp += wS+"@）"; wS = ""; });
-        t("「",()=> { resp += wS+"@「"; wS = ""; });
-        t("」",()=> { resp += wS+"@」"; wS = ""; });
-        t("(",()=> { resp += wS+"@("; wS = ""; });
-        t(")",()=> { resp += wS+"@)"; wS = ""; });
-        t("!",()=> { resp += wS+"@!"; wS = ""; });
-        t("?",()=> { resp += wS+"@?"; wS = ""; });
+        t("は",()=> { resp += wS+"は"; wD[0]+= wS; wS = ""; });
+        t("に",()=> { resp += wS+"に"; wD[1] += wS; wS = ""; });
+        t("を",()=> { resp += wS+"を"; wD[2] += wS; wS = ""; });
+        t("が",()=> { resp += wS+"が"; wD[0]+= wS; wS = ""; });
+        t("も",()=> { resp += wS+"も"; wD[0]+= wS; wS = ""; });
+        t("で",()=> { resp += wS+"で"; wD[0]+= wS; wS = ""; });
+        t("と",()=> { resp += wS+"と"; wD[0]+= wS; wS = ""; });
+        
+        t("！",()=> { resp += wS+"！"; wS = ""; });
+        t("？",()=> { resp += wS+"？"; wS = ""; });
+        t("、",()=> { resp += wS+"、"; wS = ""; });
+        t("。",()=> { resp += wS+"。"; wS = ""; });
+        t("（",()=> { resp += wS+"（"; wS = ""; });
+        t("）",()=> { resp += wS+"）"; wS = ""; });
+        t("「",()=> { resp += wS+"「"; wS = ""; });
+        t("」",()=> { resp += wS+"」"; wS = ""; });
+        t("(",()=> { resp += wS+"("; wS = ""; });
+        t(")",()=> { resp += wS+")"; wS = ""; });
+        t("!",()=> { resp += wS+"!"; wS = ""; });
+        t("?",()=> { resp += wS+"?"; wS = ""; });
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
         //await waitfor(1)
     }
 
-    echo(`${word.join("<br>")}<br>`)
+    echo(`${wD.join("<br>")}<br>`)
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
