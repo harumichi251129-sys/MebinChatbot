@@ -18,6 +18,7 @@ function echo(text) { textOutput.innerHTML += text; }
 async function chatbot(text) {
     let code = text;
     let resp = "";
+    let result = "";
     let wS = "";
     let wD = ["","",""];
     let iE = 0;
@@ -33,40 +34,67 @@ async function chatbot(text) {
         t("こんにちは",()=> { resp += "こんにちは"; });
         t("こんばんは",()=> { resp += "こんばんは"; });
 
+        t("できます",()=> { resp += wS+"できます"; wD[1] += wS+"できます"; wS = ""; });
+        t("しました",()=> { resp += wS+"しました"; wD[1] += wS+"しました"; wS = ""; });
+        t("します",()=> { resp += wS+"します"; wD[1] += wS+"します"; wS = ""; });
+        t("できる",()=> { resp += wS+"できる"; wD[1] += wS+"できる"; wS = ""; });
+        t("ました",()=> { resp += wS+"ました"; wD[1] += wS+"ました"; wS = ""; });
+        t("ません",()=> { resp += wS+"ません"; wD[1] += wS+"ません"; wS = ""; });
+        t("でした",()=> { resp += wS+"でした"; wD[1] += wS+"でした"; wS = ""; });
+        t("です",()=> { resp += wS+"です"; wD[1] += wS+"です"; wS = ""; });
+        t("ます",()=> { resp += wS+"ます"; wD[1] += wS+"ます"; wS = ""; });
+        t("する",()=> { resp += wS+"する"; wD[1] += wS+"する"; wS = ""; });
+        t("した",()=> { resp += wS+"した"; wD[1] += wS+"した"; wS = ""; });
+        t("して",()=> { resp += wS+"して"; wD[1] += wS+"して"; wS = ""; });
+        t("でき",()=> { resp += wS+"でき"; wD[1] += wS+"でき"; wS = ""; });
+        t("なる",()=> { resp += wS+"なる"; wD[1] += wS+"なる"; wS = ""; });
+        t("いる",()=> { resp += wS+"いる"; wD[1] += wS+"いる"; wS = ""; });
+        t("ある",()=> { resp += wS+"ある"; wD[1] += wS+"ある"; wS = ""; });
+        t("好き",()=> { resp += wS+"好き"; wD[1] += wS+"好き"; wS = ""; });
+        t("思います",()=> { resp += wS+"思います"; wD[1] += wS+"思います"; wS = ""; });
+        t("思う",()=> { resp += wS+"思う"; wD[1] += wS+"思う"; wS = ""; });
+        t("見える",()=> { resp += wS+"見える"; wD[1] += wS+"見える"; wS = ""; });
+
         t("って",()=> { resp += wS+"って"; wD[0]+= wS; wS = ""; });
         t("とは",()=> { resp += wS+"とは"; wD[0]+= wS; wS = ""; });
         t("では",()=> { resp += wS+"では"; wD[0]+= wS; wS = ""; });
 
         t("は",()=> { resp += wS+"は"; wD[0]+= wS; wS = ""; });
-        t("に",()=> { resp += wS+"に"; wD[1] += wS; wS = ""; });
+        t("に",()=> { resp += wS+"に"; wD[2] += wS; wS = ""; });
         t("を",()=> { resp += wS+"を"; wD[2] += wS; wS = ""; });
         t("が",()=> { resp += wS+"が"; wD[0]+= wS; wS = ""; });
         t("も",()=> { resp += wS+"も"; wD[0]+= wS; wS = ""; });
         t("で",()=> { resp += wS+"で"; wD[0]+= wS; wS = ""; });
         t("と",()=> { resp += wS+"と"; wD[0]+= wS; wS = ""; });
-        
+
         t("！",()=> { resp += wS+"！"; wS = ""; });
-        t("？",()=> { resp += wS+"？"; wS = ""; });
+        t("？",()=> { resp += wS+"？"; wD[1] += wS; wS = ""; });
         t("、",()=> { resp += wS+"、"; wS = ""; });
-        t("。",()=> { resp += wS+"。"; wS = ""; });
+        t("。",()=> { resp += wS+"。"; wD[1] += wS; wS = ""; });
         t("（",()=> { resp += wS+"（"; wS = ""; });
         t("）",()=> { resp += wS+"）"; wS = ""; });
         t("「",()=> { resp += wS+"「"; wS = ""; });
         t("」",()=> { resp += wS+"」"; wS = ""; });
         t("(",()=> { resp += wS+"("; wS = ""; });
         t(")",()=> { resp += wS+")"; wS = ""; });
-        t("!",()=> { resp += wS+"!"; wS = ""; });
-        t("?",()=> { resp += wS+"?"; wS = ""; });
+        t("!",()=> { resp += wS+"!"; wD[1] += wS; wS = ""; });
+        t("?",()=> { resp += wS+"?"; wD[1] += wS; wS = ""; });
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
-        //await waitfor(1)
     }
 
-    echo(`${wD.join("<br>")}<br>`)
+    if(wD[0] && wD[1] && wD[2]) {
+        result += "なるほど、"+wD[0]+"は"+wD[2]+"を"+wD[1]+"か、という質問ですね。";
+    }
+
+    wD[1] += wS;
+    echo(`<br><br>主語 : ${wD[0]}<br>述語 : ${wD[1]}<br>目的語 : ${wD[2]}<br>${result}<br>`)
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 (async () => {
+    echo(await chatbot("あなたはプログラムを書いた？"));
+
     echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
     echo(await chatbot("私ってどんな名前なの？"))
     echo(await chatbot(`名前は？`))
