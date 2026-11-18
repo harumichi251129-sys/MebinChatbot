@@ -13,140 +13,31 @@ git add .
 git commit -m "Add more particle variations"
 */
 
+/*関数matchingRateを、シンプルなフロー制御のみでtextと一番一致する文字数が多いtextDataのインデックスを取得するものにして。*/
+
 function echo(text) { textOutput.innerHTML += text; }
 
-async function chatbot(text) {
+let textData = [
+    ["こんにちは","こんにちは！"],
+    ["こんばんわ","こんばんは！"]
+]
+
+function matchingRate(text,rate) {
+    let mCo = 0;
+    
+}
+
+function chatbot(text) {
     let code = text;
-    let resp = "";
     let result = "";
-    let wS = "";
-    let wD = ["","",""];
-    let iE = 0;
-    let ib = 0;
+    let mR = 80;
 
-    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+    //
 
-    while(code) {
-        iE=0; ib=0;
-
-        for(let i = 0;i < particle.length;i++) { t(particle[i],()=> { wS +=particle[i];  ib=1; },0); if(ib==1) break; }
-
-        t("こんにちは",()=> { resp += "こんにちは"; });
-        t("こんばんは",()=> { resp += "こんばんは"; });
-
-        t("できます",()=> { resp += wS+"できます"; wD[1] += wS+"できます"; wS = ""; });
-        t("しました",()=> { resp += wS+"しました"; wD[1] += wS+"しました"; wS = ""; });
-        t("します",()=> { resp += wS+"します"; wD[1] += wS+"します"; wS = ""; });
-        t("できる",()=> { resp += wS+"できる"; wD[1] += wS+"できる"; wS = ""; });
-        t("ました",()=> { resp += wS+"ました"; wD[1] += wS+"ました"; wS = ""; });
-        t("ません",()=> { resp += wS+"ません"; wD[1] += wS+"ません"; wS = ""; });
-        t("でした",()=> { resp += wS+"でした"; wD[1] += wS+"でした"; wS = ""; });
-        t("です",()=> { resp += wS+"です"; wD[1] += wS+"です"; wS = ""; });
-        t("ます",()=> { resp += wS+"ます"; wD[1] += wS+"ます"; wS = ""; });
-        t("する",()=> { resp += wS+"する"; wD[1] += wS+"する"; wS = ""; });
-        t("した",()=> { resp += wS+"した"; wD[1] += wS+"した"; wS = ""; });
-        t("して",()=> { resp += wS+"して"; wD[1] += wS+"して"; wS = ""; });
-        t("でき",()=> { resp += wS+"でき"; wD[1] += wS+"でき"; wS = ""; });
-        t("なる",()=> { resp += wS+"なる"; wD[1] += wS+"なる"; wS = ""; });
-        t("いる",()=> { resp += wS+"いる"; wD[1] += wS+"いる"; wS = ""; });
-        t("ある",()=> { resp += wS+"ある"; wD[1] += wS+"ある"; wS = ""; });
-        t("好き",()=> { resp += wS+"好き"; wD[1] += wS+"好き"; wS = ""; });
-        t("思います",()=> { resp += wS+"思います"; wD[1] += wS+"思います"; wS = ""; });
-        t("思う",()=> { resp += wS+"思う"; wD[1] += wS+"思う"; wS = ""; });
-        t("見える",()=> { resp += wS+"見える"; wD[1] += wS+"見える"; wS = ""; });
-
-        t("って",()=> { resp += wS+"って"; wD[0]+= wS; wS = ""; });
-        t("とは",()=> { resp += wS+"とは"; wD[0]+= wS; wS = ""; });
-        t("では",()=> { resp += wS+"では"; wD[0]+= wS; wS = ""; });
-
-        t("は",()=> { resp += wS+"は"; wD[0]+= wS; wS = ""; });
-        t("に",()=> { resp += wS+"に"; wD[2] += wS; wS = ""; });
-        t("を",()=> { resp += wS+"を"; wD[2] += wS; wS = ""; });
-        t("が",()=> { resp += wS+"が"; wD[0]+= wS; wS = ""; });
-        t("も",()=> { resp += wS+"も"; wD[0]+= wS; wS = ""; });
-        t("で",()=> { resp += wS+"で"; wD[0]+= wS; wS = ""; });
-        t("と",()=> { resp += wS+"と"; wD[0]+= wS; wS = ""; });
-
-        t("！",()=> { resp += wS+"！"; wS = ""; });
-        t("？",()=> { resp += wS+"？"; wD[1] += wS; wS = ""; });
-        t("、",()=> { resp += wS+"、"; wS = ""; });
-        t("。",()=> { resp += wS+"。"; wD[1] += wS; wS = ""; });
-        t("（",()=> { resp += wS+"（"; wS = ""; });
-        t("）",()=> { resp += wS+"）"; wS = ""; });
-        t("「",()=> { resp += wS+"「"; wS = ""; });
-        t("」",()=> { resp += wS+"」"; wS = ""; });
-        t("(",()=> { resp += wS+"("; wS = ""; });
-        t(")",()=> { resp += wS+")"; wS = ""; });
-        t("!",()=> { resp += wS+"!"; wD[1] += wS; wS = ""; });
-        t("?",()=> { resp += wS+"?"; wD[1] += wS; wS = ""; });
-
-        if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
-    }
-
-    if(wD[0] && wD[1] && wD[2]) {
-        result += "なるほど、"+wD[0]+"は"+wD[1]+"で、"+wD[2]+"、という質問ですね。";
-    } else if(wD[0] && wD[1]) {
-        result += "なるほど、"+wD[0]+"は"+wD[1]+"、という質問ですね。";
-    } else if(wD[1] && wD[2]) {
-        result += "なるほど、"+wD[1]+"で、"+wD[2]+"、という質問ですね。";
-    } else if(wD[0] && wD[2]) {
-        result += "なるほど、"+wD[0]+"は"+wD[2]+"、という質問ですね。";
-    } else if(wD[0]) {
-        result += "なるほど、"+wD[0]+"は何、という質問ですね。";
-    } else if(wD[1]) {
-        result += "なるほど、"+wD[1]+"、という質問ですね。";
-    } else if(wD[2]) {
-        result += "なるほど、"+wD[2]+"、という質問ですね。";
-    } else {
-        result += "なるほど、"+text+"、という質問ですね。";
-    }
-
-    wD[1] += wS;
-    echo(`<br><br>主語 : ${wD[0]}<br>述語 : ${wD[1]}<br>目的語 : ${wD[2]}<br>${result}<br>`)
-    return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return result;
 }
 
 (async () => {
-    echo(await chatbot("あなたはプログラムを書いた？"));
-
-    echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
-    echo(await chatbot("私ってどんな名前なの？"))
-    echo(await chatbot(`名前は？`))
-    echo(await chatbot("あなたはチャットボットらしいですね。"))
-
-    echo(await chatbot(`こんにちは！あなたは何ができますか？`))
-    echo(await chatbot(`人工知能（AI）とは何ですか？`))
-    echo(await chatbot(`宇宙の果てには何がありますか？`))
-    echo(await chatbot(`人間の脳はどのように記憶していますか？`))
-    echo(await chatbot(`未来の世界はどうなっていると思いますか？`))
-    echo(await chatbot(`プログラミングを始めるには何から学べばいいですか？`))
-    echo(await chatbot(`なぜ空は青いのですか？`))
-    echo(await chatbot(`もし時間を自由に操れたら何ができますか？`))
-    echo(await chatbot(`AIは人間のように考えることができますか？`))
-    echo(await chatbot(`地球以外に生命が存在する可能性はありますか？`))
-    echo(await chatbot(`すもももももももものうち`))
-    
-    echo("<br><br>")
-
-    echo(await chatbot(`今日の天気はどうなっていますか？`))
-    echo(await chatbot(`日本で一番高い山は何ですか？`))
-    echo(await chatbot(`海の水はなぜ塩辛いのですか？`))
-    echo(await chatbot(`朝ごはんには何を食べるといいですか？`))
-    echo(await chatbot(`音楽を聴くと気分が変わるのはなぜですか？`))
-    echo(await chatbot(`植物はどのようにして水を吸収しますか？`))
-    echo(await chatbot(`猫はどうして高いところが好きなの？`))
-    echo(await chatbot(`電車は何時に駅に到着しますか？`))
-    echo(await chatbot(`図書館で本を借りるにはどうすればいいですか？`))
-    echo(await chatbot(`雨が降った後に虹が見えることがあります。`))
-    echo(await chatbot(`週末は友達と公園に行く予定です。`))
-    echo(await chatbot(`料理をするときには火の扱いに気をつけてください。`))
-    echo(await chatbot(`この映画はどんな人におすすめですか？`))
-    echo(await chatbot(`新しい言語を学ぶには毎日練習することが大切です。`))
-    echo(await chatbot(`桜の花はいつごろ咲きますか？`))
-    echo(await chatbot(`朝と夜では空の色が違って見えますね。`))
-    echo(await chatbot(`もし一日だけ透明人間になれたら何をしますか？`))
-    echo(await chatbot(`この道をまっすぐ進むと駅があります。`))
-    echo(await chatbot(`昨日読んだ本の続きが気になります！`))
-    echo(await chatbot(`小さな発見が毎日の楽しみになります。`))
+    echo(chatbot(`こんにちは！`))
 })();
 </script>
