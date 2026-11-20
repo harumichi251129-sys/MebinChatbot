@@ -10,7 +10,8 @@ let particle = ["いつごろ","まっすぐ","すもも","ごはん","あした
 
 /*
 git add .
-git commit -m "Add more particle variations"
+git commit -m "Update"
+git push
 */
 
 
@@ -47,12 +48,12 @@ function chatbot(text) {
     let result = "";
     let mR = 80;
 
-    //
+    result = textData[matchingRate(code,mR)][1];
 
     return result;
 }
 
 (async () => {
-    echo(matchingRate(`こんばんはー`))
+    echo(chatbot(`こんばんはー`))
 })();
 </script>
