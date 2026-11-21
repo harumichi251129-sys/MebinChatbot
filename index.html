@@ -38,7 +38,7 @@ async function chatbot(text) {
         for(let i = 0;i < wordD.length;i++) { t(wordD[i],()=> { wS +=wordD[i]+"@";  ib=1; },0); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) {
             let p = particle[i];
-            t(p,()=> { if(p == "こんにちは" || p == "こんばんは") { resp += "@"+p; } else { resp += wS+"@"+p; wS = ""; } });
+            t(p,()=> {  resp += wS+"@"+p; wS = ""; } );
         }
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
