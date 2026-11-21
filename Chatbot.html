@@ -42,7 +42,6 @@ async function chatbot(text) {
         }
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
-        //await waitfor(1)
     }
 
     return resp.replaceAll("@@","@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
