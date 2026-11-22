@@ -30,21 +30,23 @@ async function chatbot(text) {
     let iE = 0;
     let ib = 0;
 
-    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); word.push(text); resp.push("@"); code=code.replace(text,""); if(isiE==1) { iE=1;} } }
+    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); word.push(text); code=code.replace(text,""); if(isiE==1) { iE=1;} } }
 
     while(code) {
         iE=0; ib=0;
 
-        for(let i = 0;i < wordD.length;i++) { t(wordD[i],()=> { wS +=wordD[i]+"@";  ib=1; },0); if(ib==1) break; }
+        for(let i = 0;i < wordD.length;i++) { t(wordD[i],()=> { wS += wordD[i]; ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) {
             let p = particle[i];
-            t(p,()=> { resp.push(wS); resp.push(i); wS = ""; } );
-        }
+            t(p,()=> { if(wS != "") { resp.push(wS); resp.push(i); }
+            wS = "";
+        });
+}
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
     }
 
-    return resp.join("@").replaceAll("@","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return resp.join("[@]").replaceAll("[@]","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 
