@@ -24,7 +24,7 @@ function echo(text) { textOutput.innerHTML += text; }
 
 async function chatbot(text) {
     let code = text;
-    let resp = [];
+    let result = [];
     let wS = "";
     let word = [];
     let iE = 0;
@@ -38,13 +38,13 @@ async function chatbot(text) {
         for(let i = 0;i < wordD.length;i++) { t(wordD[i],()=> { wS += i+particle.length; ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) {
             let p = particle[i];
-            t(p,()=> { if(wS != "") { resp.push(wS); resp.push(i); } wS = ""; });
+            t(p,()=> { if(wS != "") { result.push(wS); result.push(i); } wS = ""; });
         }
 
         if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
     }
 
-    return resp.join("[@]").replaceAll("[@]","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return result.join("[@]").replaceAll("[@]","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 
