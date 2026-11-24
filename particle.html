@@ -8,23 +8,17 @@
 canvas = document.getElementById("result");
 textOutput = document.getElementById("console");
 
-let words = `って
-何
-なん
-か
-？
-?
-どんな
-なの
-とは
-どの`;
+let words = `すもも、0、0
+りんご、1、0`;
 
-const text = 'let position = ["' + words.split("\n").sort((a, b) => b.length - a.length).join('","') + '"];';
+const position = words
+    .split(/\r?\n/)
+    .filter((line) => line.trim())
+    .map((line) => line.split(/[、,]/).map((value) => {
+        value = value.trim();
+        return /^[-+]?(?:\d+\.?\d*|\.\d+)$/.test(value) ? Number(value) : value;
+    }));
 
-let quesParticle = ["何","どんな","ど","なぜ","どう","なれ","でき","なん"].join("<br>");
-
-
+const text = `let position = ${JSON.stringify(position)};`;
 echo(text);
-echo("<br><br><br>")
-echo(quesParticle)
 </script>
