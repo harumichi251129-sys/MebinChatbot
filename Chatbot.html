@@ -37,25 +37,18 @@ async function chatbot(text) {
     while(code) {
         iE=0; ib=0;
 
-        for(let i = 0;i < wordD.length;i++) { if(wordD[i][1] == 1) t(wordD[i][0],()=> { wS += i+particle.length; ib=1; }); if(ib==1) break; }
+        for(let i = 0;i < wordD.length;i++) { if(wordD[i][1] == 1) t(wordD[i][0],()=> { result.push(i+particle.length); ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) {
             let p = particle[i];
             t(p,()=> { if(wS != "") { result.push(wS); result.push(i); } wS = ""; });
         }
 
-        if(iE == 0) {
-            if(wS != "") {
-                result.push(wS);
-                wS = "";
-            }
-            wS += code[0];
-            code = code.slice(1);
-        }
+        if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
     }
 
     //アテンション
 
-    return result.join("[@]").replaceAll("[@]","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+    return result.join("<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
 }
 
 
