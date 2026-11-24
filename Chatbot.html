@@ -37,7 +37,7 @@ async function chatbot(text) {
     while(code) {
         iE=0; ib=0;
 
-        for(let i = 0;i < wordD.length;i++) { if(wordD[1] == 1) t(wordD[i][0],()=> { wS += i+particle.length; ib=1; }); if(ib==1) break; }
+        for(let i = 0;i < wordD.length;i++) { if(wordD[i][1] == 1) t(wordD[i][0],()=> { wS += i+particle.length; ib=1; }); if(ib==1) break; }
         for(let i = 0;i < particle.length;i++) {
             let p = particle[i];
             t(p,()=> { if(wS != "") { result.push(wS); result.push(i); } wS = ""; });
