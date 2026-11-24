@@ -106,10 +106,7 @@ let words = `いつごろ, 1, 0, 0, 0.95, 0.05, 0, 0.05, 0.05, 0.35, 0.1
 !, 0, 0, 0, 0, 0, 0, 0.05, 0.65, 0.1, 0.8
 ?, 0, 0, 0, 0, 0, 0, 0.05, 0.6, 0.15, 0.9`;
 
-const position = words
-    .split(/\r?\n/)
-    .filter((line) => line.trim())
-    .map((line) => {
+const position = words.split(/\r?\n/).filter((line) => line.trim()).map((line) => {
         const [word, type, ...values] = line.split(",");
         return [word.trim(), Number(type.trim()), ...values.map((value) => Number(value.trim()))];
     });
