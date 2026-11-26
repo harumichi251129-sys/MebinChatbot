@@ -12,8 +12,7 @@
 
 textOutput = document.getElementById("console");
 
-const cD = `すもももももももものうち。
-user:おはようございます。今日もいい天気ですね。,ai:おはようございます！本当に気持ちのいい朝ですね。
+const cD = `user:おはようございます。今日もいい天気ですね。,ai:おはようございます！本当に気持ちのいい朝ですね。
 user:昨日の夜はよく眠れましたか？,ai:はい、久しぶりに8時間もぐっすり眠れました。
 user:それは良かったです。朝食はもう食べましたか？,ai:コーヒーとトーストを軽く食べました。あなたは？
 user:私はまだなんです。お腹が空いてきました。,ai:駅前のカフェで何か食べてから行きますか？
@@ -284,7 +283,12 @@ async function chatbot(text) {
         iE=0; ib=0;
 
         for(let i = 0;i < wordD.length;i++) {
-            t(wordD[i],()=> { result.push(wordD[i]); ib=1; },0);
+            t(wordD[i],()=> {
+                if(wS != "") result.push(wS);
+                wS = "";
+                result.push(wordD[i]);
+                ib=1;
+            },0);
             if(ib==1) break;
         }
         for(let i = 0;i < particle.length;i++) {
@@ -302,6 +306,7 @@ async function chatbot(text) {
 
 
 (async () => {
+    echo(await chatbot("すもももももももものうち<br>"))
     echo(await chatbot(cD))
 })();
 </script>
