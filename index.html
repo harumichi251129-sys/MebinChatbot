@@ -129,9 +129,15 @@ Knowledge grows through observation, communication, practice, and reflection. A 
 The ability to describe the world clearly is one of the most useful human skills. A large vocabulary makes it easier to express precise meanings, understand unfamiliar texts, and communicate with people from different backgrounds.
 Ultimately, language is more than a collection of words. It is a system that allows people to share experiences, preserve knowledge, explain complex ideas, and imagine possibilities that do not yet exist.`;
 
+/*
+git add .
+git commit -m "Update"
+git push
+*/
+
 function chatbot(text) {
     let prog = text.replaceAll(/(\!|\?|\.)/gs," $1 ").trim().split(/\s+/);
-    return prog;
+    return prog.join("<code style='font-weight:1000; color:red;'>|</code>");
 }
 echo(chatbot(string))
 </script>
