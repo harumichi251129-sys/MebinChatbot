@@ -136,7 +136,7 @@ git push
 */
 
 function chatbot(text) {
-    let prog = text.replaceAll(/(\!|\?|\.)/gs," $1 ").trim().split(/\s+/);
+    let prog = text.replaceAll(/(\!|\?|\.|\,)/gs," $1 ").trim().split(/\s+/);
     return prog.join("<code style='font-weight:1000; color:red;'>|</code>");
 }
 echo(chatbot(string))
