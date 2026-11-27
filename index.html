@@ -1,98 +1,16 @@
 <div id="console"></div>
+<div id="result"></div>
 
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
+<script src="https://draw-js.oneapp.dev/Draw.js"></script>
 <script>
-
+canvas = document.getElementById("result");
 textOutput = document.getElementById("console");
 
-let wordD = ["いつごろ","まっすぐ","すもも","ごはん","あした","小さな","あなた","わたし","人工","地球","もも","毎日","昨日","今日","明日","とき","だけ","名前","何時","一番","透明","もの","何","前","後","他"];
-let particle = [
-    "こんにちは","こんばんは","すなわち","しばしば","らしい","どんな","ところ","すれば","された","いった","よって",
-    "って","して","こと","どの","から","いい","とは","なの","なぜ","もし","する","うち","です","ます","など","では","なく","でも","いる","ある","その","この","なり","なる","また","ない","いう","より","だけ","どう","なれ","でき","たら","した","なん","らし","られ",
-    "は","に","を","が","の","か","と","で","や","な","も","る",
-    "！","？","、","。","（","）","「","」","(",")","!","?"
-];
-
-/*
-git add .
-git commit -m "Update"
-git push
-*/
-
-function echo(text) { textOutput.innerHTML += text; }
-
-async function chatbot(text) {
-    let code = text;
-    let resp = [];
-    let wS = "";
-    let word = [];
-    let iE = 0;
-    let ib = 0;
-
-    function t(text,pr,isiE=1) {  if(iE == 0 && code.startsWith(text)) { pr(); word.push(text); code=code.replace(text,""); if(isiE==1) { iE=1;} } }
-
-    while(code) {
-        iE=0; ib=0;
-
-        for(let i = 0;i < wordD.length;i++) { t(wordD[i],()=> { wS += wordD[i]; ib=1; }); if(ib==1) break; }
-        for(let i = 0;i < particle.length;i++) {
-            let p = particle[i];
-            t(p,()=> { if(wS != "") { resp.push(wS); resp.push(i); } wS = ""; });
-        }
-
-        if(iE == 0) { wS += code[0]; code = code.replace(code[0],""); }
-    }
-
-    return resp.join("[@]").replaceAll("[@]","<code style='font-weight:1000; color:red;'>|</code>")+"<br><br>";
+function chatbot(text) {
+    let prog = text.replaceAll(/(\!|\?|\.)/gs," $1 ").split(/\s+/);
+    return prog;
 }
-
-
-(async () => {
-    echo(await chatbot(`HTML[注釈 1]またはHyperText Markup Language（ハイパーテキスト マークアップ ランゲージ）[注釈 2]は、ハイパーテキストを記述するためのマークアップ言語の1つで、プログラミング言語ではない。主にWorld Wide Web(WWW)において、ウェブページを表現するために用いられる。ハイパーリンクや画像等のマルチメディアを埋め込むハイパーテキストとしての機能、見出しや段落といったドキュメントの抽象構造、フォントや文字色の指定などの見た目の指定、などといった機能がある。
-ティム・バーナーズ＝リーによってSGMLを元に開発された。1993年に最初のドラフトが公開され、最初期においてはIETFが、1996年以降はW3Cが、2019年以降はWHATWGが規格の策定、仕様公開を行なっている[1][2]。
-HTMLは木構造(入子構造)のマークアップ言語であり、形式言語である。「プレーンテキストの文書を要素で括って意味付け」という一般的な説明[3]は間違いである。「『タグ』と『タグ』で括られたもの全体」が「要素」(element)であり、タグすなわち要素ではない。マークアップ言語としての特徴は、先祖であるSGMLや、兄弟のXMLと共通しているため、以下ではWWWというシステムにおける「ハイパーテキスト記述言語」としての側面についてのみ記述する。
-HTMLの要素には、文書を表現するものとしてごく一般的なものである見出し(ヘッドライン、h1〜)、段落(パラグラフ、p)、ハイパーテキストとして特徴的な「アンカー」(a)に関係するもの、画像など(imgなど)の電子メディア的なもの、などがある。また文字色の指定などといった、意味ではなく直接見た目のみを指定するようなものは、近年ではスタイルシートなどに分離するべきとされているが、歴史的事情、及び、スタイルシートよりもこの、HTMLでの記述が簡便になる場合が度々あること[注釈 3]から現在でもしばしば使われている。その他主要な要素は、HTMLの要素の記事で解説している。`))
-    echo("<br><br>")
-
-    echo(await chatbot("結局、あなたの名前と苗字って何なんですか？"))
-    echo(await chatbot("私ってどんな名前なの？"))
-    echo(await chatbot(`名前は？`))
-    echo(await chatbot("あなたはチャットボットらしいですね。"))
-
-    echo(await chatbot(`こんにちは！あなたは何ができますか？`))
-    echo(await chatbot(`人工知能（AI）とは何ですか？`))
-    echo(await chatbot(`宇宙の果てには何がありますか？`))
-    echo(await chatbot(`人間の脳はどのように記憶していますか？`))
-    echo(await chatbot(`未来の世界はどうなっていると思いますか？`))
-    echo(await chatbot(`プログラミングを始めるには何から学べばいいですか？`))
-    echo(await chatbot(`なぜ空は青いのですか？`))
-    echo(await chatbot(`もし時間を自由に操れたら何ができますか？`))
-    echo(await chatbot(`AIは人間のように考えることができますか？`))
-    echo(await chatbot(`地球以外に生命が存在する可能性はありますか？`))
-    echo(await chatbot(`すもももももももものうち`))
-    
-    echo("<br><br>")
-
-    echo(await chatbot(`今日の天気はどうなっていますか？`))
-    echo(await chatbot(`日本で一番高い山は何ですか？`))
-    echo(await chatbot(`海の水はなぜ塩辛いのですか？`))
-    echo(await chatbot(`朝ごはんには何を食べるといいですか？`))
-    echo(await chatbot(`音楽を聴くと気分が変わるのはなぜですか？`))
-    echo(await chatbot(`植物はどのようにして水を吸収しますか？`))
-    echo(await chatbot(`猫はどうして高いところが好きなの？`))
-    echo(await chatbot(`電車は何時に駅に到着しますか？`))
-    echo(await chatbot(`図書館で本を借りるにはどうすればいいですか？`))
-    echo(await chatbot(`雨が降った後に虹が見えることがあります。`))
-    echo(await chatbot(`週末は友達と公園に行く予定です。`))
-    echo(await chatbot(`料理をするときには火の扱いに気をつけてください。`))
-    echo(await chatbot(`この映画はどんな人におすすめですか？`))
-    echo(await chatbot(`新しい言語を学ぶには毎日練習することが大切です。`))
-    echo(await chatbot(`桜の花はいつごろ咲きますか？`))
-    echo(await chatbot(`朝と夜では空の色が違って見えますね。`))
-    echo(await chatbot(`もし一日だけ透明人間になれたら何をしますか？`))
-    echo(await chatbot(`この道をまっすぐ進むと駅があります。`))
-    echo(await chatbot(`昨日読んだ本の続きが気になります！`))
-    echo(await chatbot(`小さな発見が毎日の楽しみになります。`))
-})();
+echo(chatbot(`hello! what are you doing?`))
 </script>
